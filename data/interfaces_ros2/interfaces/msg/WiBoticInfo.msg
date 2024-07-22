@@ -1,0 +1,10 @@
+float32 vmonbatt
+float32 ibattery
+float32 vrect
+float32 vmoncharger
+float32 tboard
+float32 targetibatt
+float32 icharger
+float32 isinglecharger2
+float32 isinglecharger3
+bool ischarging

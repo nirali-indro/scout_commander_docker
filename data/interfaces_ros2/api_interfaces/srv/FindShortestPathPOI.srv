@@ -1,0 +1,5 @@
+string target
+string source
+---
+string[] result
+string info

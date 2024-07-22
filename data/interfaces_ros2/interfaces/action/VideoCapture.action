@@ -1,0 +1,9 @@
+string camera_name
+api_interfaces/POI[] poi
+---
+string output
+string info
+---
+string feedback
+int32[] ptz_positional_data
+float32 time_on

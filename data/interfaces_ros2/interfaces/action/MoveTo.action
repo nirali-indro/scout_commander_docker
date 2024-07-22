@@ -1,0 +1,11 @@
+int32 pan
+int32 tilt
+int32 zoom
+---
+int32 pan_final
+int32 tilt_final
+int32 zoom_final
+---
+int32 current_pan
+int32 current_tilt
+int32 current_zoom

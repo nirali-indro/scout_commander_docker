@@ -1,0 +1,15 @@
+#goal
+int32 horizontal
+int32 vertical
+int32 zoom
+
+---
+#result
+string status
+
+---
+#feedback
+int32 horizontal
+int32 vertical
+int32 zoom
+

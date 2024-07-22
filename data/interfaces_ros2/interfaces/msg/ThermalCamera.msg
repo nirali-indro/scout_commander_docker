@@ -1,0 +1,10 @@
+std_msgs/Header header
+std_msgs/Float32MultiArray thumb_stick
+std_msgs/Float32 left_trigger
+std_msgs/Float32 right_trigger
+std_msgs/Int32 up
+std_msgs/Int32 left
+std_msgs/Int32 right
+std_msgs/Int32 back
+std_msgs/Int32 home
+std_msgs/Int32 wiper

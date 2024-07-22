@@ -1,0 +1,13 @@
+std_msgs/Header header
+string device_model
+int64 imei
+string iccid
+string apn
+string pin
+string isp
+int32 signal
+int32 cgreg
+int32 nwmode
+string scanmode
+string bandval
+string ltebandval

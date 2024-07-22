@@ -1,0 +1,6 @@
+sensor_msgs/NavSatFix input
+string poi
+---
+string result
+---
+string feedback

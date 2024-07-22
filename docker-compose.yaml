@@ -1,0 +1,67 @@
+services:
+
+  mapping_new:
+    build:
+      dockerfile: Dockerfile
+      # no_cache: true
+    image: scout_commander_test:latest
+    container_name: mapping_new
+    privileged: true
+    network_mode: "host"
+    environment:
+      - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+      - CYCLONEDDS_URI=file:///home/cyclonedds.xml
+    command: ros2 launch scout_mini_control scout_bringup.launch.py rtabmap_args:=--delete_db_on_start database_path:=/home/indro/map/map_outside.db 
+    volumes: 
+      - /home/indro/map:/home/indro/map:rw
+    # command: rviz2
+
+  scout_base_nav2:
+    image: scout_commander_test:latest
+    container_name: scout_base_nav2
+    privileged: true
+    network_mode: "host"
+    environment:
+      - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+      - CYCLONEDDS_URI=file:///home/cyclonedds.xml
+    command: ros2 launch scout_base scout_mini_omni_base.launch.py 
+   
+
+  mapping:
+    image: scout_commander_test:latest
+    container_name: mapping
+    privileged: true
+    network_mode: "host"
+    environment:
+      - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+      - CYCLONEDDS_URI=file:///home/cyclonedds.xml
+    #command: ros2 launch scout_mini_control scout_bringup.launch.py  database_path:=/home/indro/map/map.db
+    volumes: 
+      - /home/indro/map:/home/indro/map:rw
+
+  localization:
+    image: scout_commander_test:latest
+    container_name: localization
+    privileged: true
+    network_mode: "host"
+    restart: no
+    environment:
+      - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+      - CYCLONEDDS_URI=file:///home/cyclonedds.xml
+    command: ros2 launch scout_mini_control scout_bringup.launch.py localization:=true database_path:=/home/indro/map_saved/map_outside.db
+    volumes:
+      - /home/indro/map:/home/indro/map_saved
+   
+
+  navigation:
+    depends_on:
+      - localization
+    image: scout_commander_test:latest
+    container_name: navigation
+    privileged: true
+    network_mode: "host"
+    restart: no
+    environment:
+    - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+    - CYCLONEDDS_URI=file:///home/cyclonedds.xml
+    command: ros2 launch scout_mini_control navigation_bringup.launch.py

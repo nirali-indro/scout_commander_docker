@@ -1,0 +1,4 @@
+string input
+---
+sensor_msgs/NavSatFix[] result
+string info

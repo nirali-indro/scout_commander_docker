@@ -1,0 +1,6 @@
+sensor_msgs/NavSatFix input
+float32 max_distance
+int32 max_points
+---
+sensor_msgs/NavSatFix result
+string info

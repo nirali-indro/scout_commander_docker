@@ -1,0 +1,110 @@
+<?xml version="1.0"?>
+
+<robot name="scout_mini" xmlns:xacro="http://ros.org/wiki/xacro">
+
+    <xacro:include
+        filename="$(find scout_mini_description)/models/scout_mini/xacro/scout_mini_wheel.xacro" />
+    <xacro:include
+        filename="$(find scout_mini_description)/models/commander_slim/xacro/commander_slim.xacro" />
+    <!-- Variables -->
+    <xacro:property name="M_PI" value="3.14159" />
+
+    <!-- Vehicle Geometries -->
+    <xacro:property name="base_x_size" value="0.6200000" />
+    <xacro:property name="base_y_size" value="0.585000" />
+    <xacro:property name="base_z_size" value="0.235000" />
+
+    <xacro:property name="wheelbase" value="0.463951" />
+    <xacro:property name="track" value="0.416503" />
+    <xacro:property name="wheel_vertical_offset" value="-0.100998" />
+
+    <xacro:property name="wheel_length" value="0.8e-01" />
+    <xacro:property name="wheel_radius" value="1.600e-01" />
+
+    <xacro:property name="robot_namespace" value="/scout_mini" />
+
+    <!-- Base link -->
+    <link name="base_link">
+        <visual>
+            <origin
+                xyz="0 0 0"
+                rpy="1.5707 0 -1.5707" />
+            <geometry>
+                <mesh
+                    filename="package://scout_mini_description/models/scout_mini/meshes/scout_mini_base_link.dae" />
+            </geometry>
+        </visual>
+        <collision>
+            <origin
+                xyz="0 0 0"
+                rpy="1.5707 0 -1.5707" />
+            <geometry>
+                <mesh
+                    filename="package://scout_mini_description/models/scout_mini/meshes/scout_mini_base_link.dae" />
+            </geometry>
+        </collision>
+    </link>
+
+    <link name="inertial_link">
+        <inertial>
+            <mass value="60" />
+            <origin xyz="0.0 0.0 0.0" />
+            <inertia ixx="3.0" ixy="0" ixz="0" iyy="2.5" iyz="0" izz="3.431465" />
+        </inertial>
+    </link>
+
+    <joint name="inertial_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="inertial_link" />
+    </joint>
+
+    <link name="base_footprint" />
+    <joint name="base_footprint_joint" type="fixed">
+        <origin xyz="0 0 0.16" />
+        <parent link="base_footprint"/>
+        <child link="base_link"/>
+    </joint>
+
+    <!-- Scout wheel macros -->
+    <xacro:scout_mini_wheel wheel_prefix="front_right" joint_type="fixed" reflect="-1">
+        <origin xyz= "0 0 0" rpy="1.57 0 0" />
+        <origin xyz="${wheelbase/2} ${-track/2} ${wheel_vertical_offset}" rpy="0 0 0" />
+    </xacro:scout_mini_wheel>
+
+    <xacro:scout_mini_wheel wheel_prefix="front_left" joint_type="fixed" reflect="1">
+        <origin xyz= "0 0 0" rpy="-1.57 0 0" />
+        <origin xyz="${wheelbase/2} ${track/2} ${wheel_vertical_offset}" rpy="0 0 0" />
+    </xacro:scout_mini_wheel>
+
+    <xacro:scout_mini_wheel wheel_prefix="rear_left" joint_type="fixed" reflect="1">
+        <origin xyz= "0 0 0" rpy="-1.57 0 0" />
+        <origin xyz="${-wheelbase/2} ${track/2} ${wheel_vertical_offset}" rpy="0 0 0" />
+    </xacro:scout_mini_wheel>
+
+    <xacro:scout_mini_wheel wheel_prefix="rear_right" joint_type="fixed" reflect="-1">
+        <origin xyz= "0 0 0" rpy="1.57 0 0" />
+        <origin xyz="${-wheelbase/2} ${-track/2} ${wheel_vertical_offset}" rpy="0 0 0" />
+    </xacro:scout_mini_wheel>
+    
+    <link name="front_mount" />
+    <joint name="front_mount_joint" type="fixed">
+        <origin xyz="0.175 0 0.068999" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="front_mount" />
+    </joint>
+
+    <link name="rear_mount" />
+    <joint name="rear_mount_joint" type="fixed">
+        <origin xyz="-0.175 0 0.068999" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="rear_mount" />
+    </joint>
+
+    <link name="scout_mini_camera_link" />
+    <joint name="base_link_camera_joint" type="fixed">
+        <origin xyz="0.277812 0 0.176212" rpy="0 0 0" />
+        <parent link="base_link" />
+        <child link="scout_mini_camera_link" />
+    </joint>
+</robot>

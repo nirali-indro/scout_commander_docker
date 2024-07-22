@@ -1,0 +1,5 @@
+
+---
+sensor_msgs/NavSatFix[] gps_points
+POI[] pois
+string info

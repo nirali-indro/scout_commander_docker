@@ -1,0 +1,7 @@
+# route_status
+# 0 is save
+# 1 is read and send
+int32 route_status
+---
+string[] result
+string info

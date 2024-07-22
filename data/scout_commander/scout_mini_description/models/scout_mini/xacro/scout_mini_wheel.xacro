@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://ros.org/wiki/xacro" name="scout_wheel">
+
+    <xacro:macro name="scout_mini_wheel" params="reflect wheel_prefix joint_type *visual_origin *joint_pose">
+        <link name="${wheel_prefix}_wheel_link">
+            <inertial>
+                <mass value="3" />
+                <origin xyz="0 ${reflect * 0.05} 0" />
+                <inertia ixx="0.012" ixy="0" ixz="0" iyy="0.012" iyz="0" izz="0.012" />
+            </inertial>
+            <visual>
+                <xacro:insert_block name="visual_origin" />
+                <geometry>
+                    <mesh
+                        filename="package://scout_mini_description/models/scout_mini/meshes/wheel.dae" />
+                </geometry>
+            </visual>
+            <collision>
+                <xacro:insert_block name="visual_origin" />
+                <geometry>
+                    <mesh
+                        filename="package://scout_mini_description/models/scout_mini/meshes/wheel.dae" />
+                </geometry>
+            </collision>
+        </link>
+
+        <joint name="${wheel_prefix}_wheel" type="${joint_type}">
+            <parent link="base_link" />
+            <child link="${wheel_prefix}_wheel_link" />
+            <xacro:insert_block name="joint_pose" />
+            <axis xyz="0 1 0" rpy="0 0 0" />
+        </joint>
+    </xacro:macro>
+
+</robot>

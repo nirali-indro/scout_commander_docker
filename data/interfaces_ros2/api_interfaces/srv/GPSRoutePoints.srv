@@ -1,0 +1,4 @@
+sensor_msgs/NavSatFix[] gps_points
+---
+sensor_msgs/NavSatFix[] result
+string info
